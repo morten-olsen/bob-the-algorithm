@@ -1,4 +1,6 @@
 export * from './icon';
+export * from './modal';
+export * from './icon';
 export * from './form';
 export * from './page';
 export * from './popup';

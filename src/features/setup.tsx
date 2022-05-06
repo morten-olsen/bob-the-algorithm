@@ -3,6 +3,7 @@ import { ReactNode } from "react"
 import { AgendaContextProvider } from "./agenda-context"
 import { CalendarProvider } from "./calendar"
 import { LocationProvider } from "./location"
+import { PlannerProvider } from "./planner"
 import { RoutinesProvider } from "./routines"
 
 type SetupProps = {
@@ -21,7 +22,9 @@ const Setup: React.FC<SetupProps> = ({
     <RoutinesProvider>
       <LocationProvider getTransition={getTransit} lookup={() => []}>
         <AgendaContextProvider day={day}>
-          {children}
+          <PlannerProvider>
+            {children}
+          </PlannerProvider>
         </AgendaContextProvider>
       </LocationProvider>
     </RoutinesProvider>

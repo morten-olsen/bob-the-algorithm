@@ -1,11 +1,10 @@
 import { useLocations, useSetLocation } from "#/features/location";
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Button, Checkbok, TextInput } from "#/ui/components";
+import { Popup, Button, Checkbok, TextInput } from "#/ui/components";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { nanoid } from 'nanoid';
 import { useAgendaContext, useSetAgendaContext } from "#/features/agenda-context";
 import { format } from "date-fns";
-import Popup from "#/ui/components/popup";
 
 const AgendaContextSetScreen: React.FC = () => {
   const { params = {} } = useRoute() as any;

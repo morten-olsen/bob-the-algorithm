@@ -51,4 +51,4 @@ const Popup: React.FC<Props> = ({ visible, children, onClose }) => {
   );
 };
 
-export default Popup;
+export { Popup };

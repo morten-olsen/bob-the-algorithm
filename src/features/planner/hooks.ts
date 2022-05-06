@@ -5,9 +5,10 @@ import { useAsyncCallback } from "#/hooks/async";
 import { UserLocation } from "#/types/location";
 import { useDate } from "../calendar";
 import { useTasksWithContext } from "../agenda-context";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { PlanItem } from "#/types/plans";
 import { Task } from "#/types/task";
+import { PlannerContext } from "./context";
 
 export type UsePlanOptions = {
   location: UserLocation;
@@ -23,10 +24,21 @@ export type UsePlan = [
   }
 ]
 
+export const usePlanOptions = () => {
+  const { options } = useContext(PlannerContext);
+  return options;
+}
+
+export const useSetPlanOptions = () => {
+  const { setOptions } = useContext(PlannerContext);
+  return setOptions;
+}
+
 export const usePlan = ({
   location,
 }: UsePlanOptions): UsePlan => {
   const today = useDate();
+  const planOptions = usePlanOptions();
   const [status, setStatus] = useState<Status>();
   const all = useTasksWithContext();
   const enabled = useMemo(() => all.filter(f => f.enabled), [all])
@@ -37,7 +49,7 @@ export const usePlan = ({
         location,
         time: start || today,
         tasks: enabled,
-        strategy: Strategies.firstComplet,
+        strategy: planOptions.strategy,
         context: {
           getTransition,
         },
@@ -50,7 +62,7 @@ export const usePlan = ({
         agenda: day, 
       };
     },
-    [today, location, all, setStatus],
+    [today, location, all, setStatus, planOptions],
   );
 
   return [

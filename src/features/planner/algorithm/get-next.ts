@@ -13,7 +13,7 @@ type GetImpossibleResult = {
   impossible: Task[];
 }
 
-const getImpossible = (
+export const getImpossible = (
   tasks: Task[],
   time: Date,
 ) => {
@@ -50,15 +50,15 @@ const calculateScore = ({
     score += task.priority * 10;
     impossible.forEach((task) => {
       if (task.required) {
-        score -= 1000;
+        score -= 10000 + (1 * task.priority);
       } else {
-        score -= task.priority;
+        score -= 100 + (1 * task.priority);
       }
     });
   });
   if (transition) {
     const minutes = transition.time / 1000 / 60
-    score -= minutes;
+    score -= 10 + (1 * minutes);
   }
   return score;
 }

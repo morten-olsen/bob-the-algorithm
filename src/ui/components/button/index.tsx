@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components/native';
 import { TouchableOpacity } from 'react-native';
-import { IconNames, Icon } from '#/ui/components';
+import { IconNames, Icon } from '../icon';
 import { Theme } from '#/ui/theme';
 import { Link } from '#/ui/typography';
 

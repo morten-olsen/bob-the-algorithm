@@ -12,6 +12,7 @@ import { RoutineSetScreen } from '../screens/routines/set';
 import { TaskListScreen } from '../screens/plan/tasks';
 import { AgendaContextSetScreen } from '../screens/plan/set';
 import { Icon } from '../components';
+import { PlanSettingsScreen } from '../screens/plan/settings';
 
 const MainTabsNvaigator = createBottomTabNavigator();
 
@@ -79,6 +80,7 @@ const Root: React.FC = () => (
       <RootNavigator.Screen name="locationSet" component={LocationSetScreen} />
       <RootNavigator.Screen name="routineSet" component={RoutineSetScreen} />
       <RootNavigator.Screen name="agendaContextSet" component={AgendaContextSetScreen} />
+      <RootNavigator.Screen name="planSettings" component={PlanSettingsScreen} />
     </RootNavigator.Group>
   </RootNavigator.Navigator>
 );

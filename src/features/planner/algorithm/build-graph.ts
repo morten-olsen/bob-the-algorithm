@@ -1,7 +1,7 @@
 import { Context, GraphNode } from "#/types/graph";
 import { UserLocation } from "#/types/location";
 import { Task } from "#/types/task";
-import { getNext } from "./get-next";
+import { getImpossible, getNext } from "./get-next";
 
 enum Strategies {
   all = 'all',
@@ -13,6 +13,7 @@ type RunningStatus = {
   current: 'running';
   nodes: number;
   start: Date;
+  strategy: Strategies,
   cancel: () => void;
 }
 
@@ -21,6 +22,7 @@ type CompletedStatus = {
   start: Date;
   end: Date;
   nodes: number;
+  strategy: Strategies,
 }
 
 type Status = RunningStatus | CompletedStatus;
@@ -65,38 +67,62 @@ const buildGraph = async ({
   sleepTime = 10,
 }: BuildGraphOptions) => {
   const start = new Date();
-  let leafs: GraphNode[] = [{
+  let nodeCount = 0;
+  let running = true;
+  const { remaining, impossible } = getImpossible(tasks, time);
+  let leafList: GraphNode[] = [{
     location,
     time: {
       end: time,
       start: time,
     },
     score: 0,
-    remainingTasks: tasks,
-    impossibeTasks: [],
+    remainingTasks: remaining,
+    impossibeTasks: impossible,
     status: {
       dead: false,
       completed: false,
     },
   }];
-  let nodes = 0;
-  let running = true;
-  const final: GraphNode[] = [];
+  const completedList: GraphNode[] = [];
+  const deadList: GraphNode[] = [];
+
+  const complete = (nodes: GraphNode[]) => {
+    if (callback) {
+      callback({
+        current: 'completed',
+        nodes: nodeCount,
+        start,
+        end: new Date(),
+        strategy,
+      });
+    }
+    return nodes.sort((a, b) => b.score - a.score);
+  }
 
   while (true) {
-    nodes++;
+    nodeCount++;
     if (!running) {
       return [];
     }
-    const node = leafs.pop();
+    if (
+      leafList.length === 0
+      && completedList.length === 0
+      && strategy !== Strategies.all
+    ) {
+      strategy = Strategies.all;
+      leafList.push(...deadList);
+    }
+    const node = leafList.pop();
     if (!node) {
       break;
     }
-    if (nodes % batchSize === 1) {
+    if (nodeCount % batchSize === 0) {
       if (callback) {
         callback({
           current: 'running',
-          nodes,
+          nodes: nodeCount,
+          strategy,
           start,
           cancel: () => {
             running = false;
@@ -106,38 +132,28 @@ const buildGraph = async ({
       await sleep(sleepTime);
     }
     const next = await getNext(node, context); 
-    const [alive, completed] = fil([
-      n => !n.status.dead && !n.status.completed,
-      n => !!n.status.completed && !n.status.dead
+    const [alive, completed, dead] = fil([
+      n => (strategy === Strategies.all || !n.status.dead) && !n.status.completed,
+      n => !!n.status.completed && (strategy === Strategies.all || !n.status.dead),
+      n => n.status.dead,
     ], next);
-    leafs.push(...alive);
+    leafList.push(...alive);
     if (strategy === Strategies.firstValid && completed.length > 0) {
-      if (callback) {
-        callback({ current: 'completed', nodes, start, end: new Date() })
-      }
-      return completed;
+      return complete(completed);
     }
     if (completed.length > 0) {
-      final.push(...completed)
+      completedList.push(...completed)
     }
     if (strategy === Strategies.firstComplet) {
       const fullComplete = completed.find(c => c.impossibeTasks.length === 0);
       if (fullComplete) {
-        if (callback) {
-          callback({ current: 'completed', nodes, start, end: new Date() })
-        }
-        return [fullComplete];
+        return complete([fullComplete]);
       }
     }
+    deadList.push(...dead);
   }
 
-  console.log('nodes', nodes);
-  if (callback) {
-    callback({ current: 'completed', nodes, start, end: new Date() })
-  }
-  return final 
-    .filter(n => n.status.completed)
-    .sort((a, b) => b.score - a.score);
+  return complete(completedList);
 }
 
 export type { Status, BuildGraphOptions };

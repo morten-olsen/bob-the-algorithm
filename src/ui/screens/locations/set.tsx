@@ -1,9 +1,8 @@
 import { useLocations, useSetLocation } from "#/features/location";
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Button, TextInput } from "#/ui/components";
+import { Popup, Button, TextInput } from "#/ui/components";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { nanoid } from 'nanoid';
-import Popup from "#/ui/components/popup";
 
 const LocationSetScreen: React.FC = () => {
   const { params = {} } = useRoute() as any;

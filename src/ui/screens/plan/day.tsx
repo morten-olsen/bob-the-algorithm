@@ -8,19 +8,19 @@ import { useCommit, useDate } from "#/features/calendar";
 import { format, formatDistance, formatDistanceToNow, set } from "date-fns";
 import styled from "styled-components/native";
 import { Status } from "#/features/planner/algorithm/build-graph";
+import { useNavigation } from "@react-navigation/native";
 
 const Wrapper = styled.ScrollView`
 
 `;
 
 const getStats = (status: Status) => {
-  console.log('status', status);
   if (status.current === 'running') {
     const runTime = formatDistanceToNow(status.start, { includeSeconds: true })
-    return `calulated ${status.nodes} nodes in ${runTime}`;
+    return `calulated ${status.nodes} nodes in ${runTime} using ${status.strategy}`;
   }
   const runTime = formatDistance(status.start, status.end, { includeSeconds: true })
-  return `calulated ${status.nodes} nodes in ${runTime}`;
+  return `calulated ${status.nodes} nodes in ${runTime} using ${status.strategy}`;
 };
 
 const PlanDayScreen: React.FC = () => {
@@ -28,10 +28,11 @@ const PlanDayScreen: React.FC = () => {
   const [location] = useCurrentLocation();
   const [startTime, setStartTime] = useState('06:00');
   const [commit] = useCommit();
+  const { navigate } = useNavigation();
   const current = useMemo(
     () => location || {
       id: 'unknown',
-      title: 'foo',
+      title: 'Unknown',
     },
     [location]
   )
@@ -70,6 +71,9 @@ const PlanDayScreen: React.FC = () => {
                   <Button onPress={() => commit(options.result?.agenda || [])} icon="download" />
                 </Cell>
               )}
+              <Cell>
+                <Button onPress={() => navigate('planSettings')} icon="settings" />
+              </Cell>
             </>
           )}
         />
