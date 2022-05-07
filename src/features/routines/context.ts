@@ -1,7 +1,7 @@
 import { UserLocation } from "#/types/location";
 import { createContext } from "react"
 
-type Routine = {
+export type Routine = {
   id: string;
   title: string;
   required: boolean;
@@ -15,7 +15,7 @@ type Routine = {
   days?: boolean[];
 }
 
-type RoutinesContextValue = {
+export type RoutinesContextValue = {
   routines: Routine[]; 
   remove: (id: string) => any;
   set: (routine: Routine) => any;
@@ -23,5 +23,4 @@ type RoutinesContextValue = {
 
 const RoutinesContext = createContext<RoutinesContextValue>(undefined as any);
 
-export type { Routine, RoutinesContextValue };
 export { RoutinesContext };

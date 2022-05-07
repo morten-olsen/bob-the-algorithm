@@ -3,6 +3,7 @@ import React, { ReactNode, useCallback, useMemo, useState } from "react";
 import { useAsync } from "#/hooks/async";
 import { CalendarContext } from "./context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from "react-native";
 
 const SELECTED_STORAGE_KEY = 'selected_calendars';
 
@@ -15,6 +16,8 @@ type CalendarProviderProps = {
 
 type SetupResponse = {
   status: 'rejected';
+} | {
+  status: 'unavailable';
 } | {
   status: 'ready';
   calendar: Calendar;
@@ -31,6 +34,9 @@ const CalendarProvider: React.FC<CalendarProviderProps> = ({
   const [value] = useAsync<SetupResponse>(
     async () => {
       const { status } = await requestCalendarPermissionsAsync(); 
+      if (Platform.OS !== 'ios') {
+        return { status: 'unavailable' };
+      }
       if (status !== 'granted') {
         return { status: 'rejected' };
       }
@@ -81,13 +87,22 @@ const CalendarProvider: React.FC<CalendarProviderProps> = ({
     [value, selectedIds],
   );
 
-  if (!value || value.status !== 'ready') {
+  if (!value) {
     return <></>
+  }
+
+  if (value.status !== 'ready') {
+    return (
+      <CalendarContext.Provider value={{ status: value.status, date, setDate }}>
+        {children}
+      </CalendarContext.Provider>
+    );
   }
 
   return (
     <CalendarContext.Provider 
       value={{
+        status: 'ready',
         setDate,
         date,
         selected,

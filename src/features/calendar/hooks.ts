@@ -5,24 +5,39 @@ import { useAsync, useAsyncCallback } from "#/hooks/async";
 import { createEventAsync, deleteEventAsync, getEventsAsync } from "expo-calendar";
 import { PlanItem } from "#/types/plans";
 
+const emptyArray: never[] = [];
+const emptyFn = () => undefined;
+
 export const useCalendar = () => {
-  const { calendar } = useContext(CalendarContext);
-  return calendar;
+  const context = useContext(CalendarContext);
+  if (context.status !== 'ready') {
+    return undefined;
+  }
+  return context.calendar;
 }
 
 export const useCalendars = () => {
-  const { calendars } = useContext(CalendarContext);
-  return calendars;
+  const context = useContext(CalendarContext);
+  if (context.status !== 'ready') {
+    return emptyArray;
+  }
+  return context.calendars;
 }
 
 export const useSelectedCalendars = () => {
-  const { selected } = useContext(CalendarContext);
-  return selected;
+  const context = useContext(CalendarContext);
+  if (context.status !== 'ready') {
+    return emptyArray;
+  }
+  return context.selected;
 }
 
 export const useSetSelectedCalendars = () => {
-  const { setSelected } = useContext(CalendarContext);
-  return setSelected;
+  const context = useContext(CalendarContext);
+  if (context.status !== 'ready') {
+    return emptyFn;
+  }
+  return context.setSelected;
 }
 
 export const useDate = () => {
@@ -40,6 +55,9 @@ export const useCommit = () => {
   const calendar = useCalendar();
   const result = useAsyncCallback(
     async (plan: PlanItem[]) => {
+      if (!calendar) {
+        return;
+      }
       const end = set(date, {
         hours: 24,
         minutes: 0,
@@ -64,7 +82,7 @@ export const useCommit = () => {
         })
       }
     },
-    [date],
+    [date, calendar],
   );
 
   return result;

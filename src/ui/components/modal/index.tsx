@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Modal as Wrapper } from 'react-native';
+import Wrapper from './react-modal';
 import { Popup } from '../popup';
 type ModalProps = {
   visible: boolean;
