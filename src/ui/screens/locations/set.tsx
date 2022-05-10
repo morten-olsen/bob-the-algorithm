@@ -1,61 +1,56 @@
-import { useLocations, useSetLocation } from "#/features/location";
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { Popup, Button, TextInput } from "#/ui/components";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { nanoid } from 'nanoid';
+import { useAsyncCallback } from "#/features/async";
+import { useLocations, useSetLocation } from "#/features/location"
+import { Button, Popup, Row } from "#/ui/components/base";
+import { TextInput } from "#/ui/components/form";
+import { LocationSetScreenRouteProp, RootNavigationProp } from "#/ui/router";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 const LocationSetScreen: React.FC = () => {
-  const { params = {} } = useRoute() as any;
-  const id = useMemo(
-    () => params.id || nanoid(),
-    [params.id],
-  )
+  const {
+    params: { id = nanoid() },
+  } = useRoute<LocationSetScreenRouteProp>();
+  const { navigate } = useNavigation<RootNavigationProp>();
   const locations = useLocations();
-  const { navigate, goBack } = useNavigation();
   const [title, setTitle] = useState('');
-  const [lng, setLng] = useState('');
-  const [lat, setLat] = useState('');
-  const set = useSetLocation();  
+  const setLocation = useSetLocation();
 
   useEffect(
     () => {
-      const current = locations[id];
+      const current = locations.find(l => l.id === id);
       if (!current) {
         return;
       }
       setTitle(current.title);
-      setLng(current.location?.longitute.toString() || '');
-      setLat(current.location?.latitude.toString() || '');
     },
-    [locations, id],
+    [id, locations],
   )
 
-  const save = useCallback(
-    () => {
-      const lngParsed = parseFloat(lng);
-      const latParsed = parseFloat(lat);
-      set({
+  const [save] = useAsyncCallback(
+    async () => {
+      await setLocation({
         id,
         title,
-        location: {
-          longitute: lngParsed,
-          latitude: latParsed,
-        },
+        position: { longitute: 0, latitude: 0 },
       });
       navigate('main');
     },
-    [title, lng, lat, id],
-  )
+    [id, title],
+  );
 
   return (
-    <Popup onClose={goBack}>
-      <TextInput value={title} onChangeText={setTitle} placeholder="Title" />
-      <TextInput value={lng} onChangeText={setLng} placeholder="Longitute" />
-      <TextInput value={lat} onChangeText={setLat} placeholder="Latitude" />
-      <Button title="Save" onPress={save} />
+    <Popup title="Edit location">
+      <TextInput
+        label="What should it call the location?"
+        value={title}
+        onChangeText={setTitle}
+      />
+      <Row>
+        <Button title="Save" onPress={save} />
+      </Row>
     </Popup>
-  )
-}
+  );
+};
 
 export { LocationSetScreen };
-

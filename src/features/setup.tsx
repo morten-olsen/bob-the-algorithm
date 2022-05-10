@@ -1,35 +1,39 @@
-import { GetTransition } from "#/types/location"
 import { ReactNode } from "react"
-import { AgendaContextProvider } from "./agenda-context"
-import { CalendarProvider } from "./calendar"
-import { LocationProvider } from "./location"
+import { AppointmentsProvider } from "./appointments"
+import { DateProvider } from "./day"
+import { GoalsProvider } from "./goals/context"
+import { GetTransition, LocationProvider } from "./location"
+import { OverrideProvider } from "./overrides"
 import { PlannerProvider } from "./planner"
 import { RoutinesProvider } from "./routines"
 
 type SetupProps = {
-  day: Date;
-  setDate: (date: Date) => void;
   children: ReactNode;
   getTransit: GetTransition;
 }
+
 const Setup: React.FC<SetupProps> = ({
   children,
-  day,
-  setDate,
   getTransit,
-}) => (
-  <CalendarProvider date={day} setDate={setDate}>
-    <RoutinesProvider>
-      <LocationProvider getTransition={getTransit} lookup={() => []}>
-        <AgendaContextProvider day={day}>
-          <PlannerProvider>
-            {children}
-          </PlannerProvider>
-        </AgendaContextProvider>
-      </LocationProvider>
-    </RoutinesProvider>
-  </CalendarProvider>
-);
+}) => {
+  return (
+    <DateProvider>
+      <PlannerProvider storageKey="planner">
+        <LocationProvider getTransition={getTransit} lookup={() => []}>
+          <AppointmentsProvider>
+            <GoalsProvider storageKey="goals">
+              <RoutinesProvider storageKey="routines">
+                <OverrideProvider>
+                  {children}
+                </OverrideProvider>
+              </RoutinesProvider>
+            </GoalsProvider>
+          </AppointmentsProvider>
+        </LocationProvider>
+      </PlannerProvider>
+    </DateProvider>
+  );
+};
 
 export type { SetupProps };
 export { Setup };

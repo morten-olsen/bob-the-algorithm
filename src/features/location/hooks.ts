@@ -1,13 +1,14 @@
-import { useAsync } from "#/hooks/async";
-import { useContext } from "react"
+import { useAsync } from "#/features/async";
+import { useContext, useMemo } from "react"
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 import { LocationContext } from "./context"
-import { UserLocation } from "#/types/location";
+import { UserLocation } from "../data";
 import { getDistanceFromLatLonInKm } from "./utils";
 
 export const useLocations = () => {
   const { locations } = useContext(LocationContext);
-  return locations;
+  const result = useMemo(() => Object.values(locations), [locations]);
+  return result;
 }
 
 export const useSetLocation = () => {
@@ -31,7 +32,7 @@ export const useLookup = () => {
 }
 
 export const useCurrentLocation = (proximity: number = 0.5) => {
-  const locations = useLocations();
+  const { locations } = useContext(LocationContext);
   const result = useAsync<UserLocation | undefined>(
     async () => {
       let { status } = await requestForegroundPermissionsAsync();
@@ -40,14 +41,14 @@ export const useCurrentLocation = (proximity: number = 0.5) => {
       }
       let position = await getCurrentPositionAsync({});
       const withDistance = Object.values(locations).map((location) => {
-        if (!location.location) {
+        if (!location.position) {
           return;
         }
         const distance = getDistanceFromLatLonInKm(
           position.coords.latitude,
           position.coords.longitude,
-          location.location.latitude,
-          location.location.longitute,
+          location.position.latitude,
+          location.position.longitute,
         )
         return {
           distance,
@@ -59,7 +60,7 @@ export const useCurrentLocation = (proximity: number = 0.5) => {
         return {
           id: `${position.coords.longitude} ${position.coords.latitude}`,
           title: 'Unknown',
-          location: {
+          position: {
             latitude: position.coords.latitude,
             longitute: position.coords.longitude,
           },

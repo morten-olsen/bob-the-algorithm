@@ -1,8 +1,9 @@
-import { useAsync, useAsyncCallback } from "#/hooks/async";
-import { GetTransition, UserLocation } from "#/types/location";
+import { useAsync, useAsyncCallback } from "#/features/async";
+import { GetTransition } from "./context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ReactNode, useState } from "react";
 import { LocationContext } from "./context";
+import { UserLocation } from "../data";
 
 type LocationProviderProps = {
   children: ReactNode;
@@ -10,7 +11,7 @@ type LocationProviderProps = {
   getTransition: GetTransition;
 }
 
-const LOCATION_STORAGE_KEY = 'location_storage';
+const LOCATION_STORAGE_KEY = 'locations';
 
 const LocationProvider: React.FC<LocationProviderProps> = ({
   children,

@@ -1,8 +1,9 @@
 import React from 'react';
-import styled, { useTheme } from 'styled-components/native';
-import { Row, RowProps } from '../../row';
+import styled from 'styled-components/native';
+import { Row, RowProps } from '#/ui/components/base';
 
 type Props = RowProps & {
+  label: string;
   placeholder?: string;
   value: string;
   onChangeText: (text: string) => any;
@@ -17,11 +18,11 @@ const InputField = styled.TextInput`
   width: 100%;
 `;
 
-const TextInput: React.FC<Props> = ({ placeholder, value, onChangeText, children, ...row }) => {
-  const theme = useTheme();
+const TextInput: React.FC<Props> = ({ label, placeholder, value, onChangeText, children, ...row }) => {
   return (
-    <Row overline={placeholder} {...row}>
+    <Row overline={label} {...row}>
       <InputField
+        placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
       />

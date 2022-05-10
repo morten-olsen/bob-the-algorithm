@@ -1,15 +1,18 @@
-import { createContext } from 'react';
+import { createDataContext } from '#/utils/data-context';
 import { Strategies } from "./algorithm/build-graph";
 
 type PlannerOptions = {
   strategy: Strategies;
 }
-type PlannerContextValue = {
-  options: PlannerOptions;
-  setOptions: (options: Partial<PlannerOptions>) => void;
-}
 
-const PlannerContext = createContext<PlannerContextValue>(undefined as any);
+const {
+  Context: PlannerContext,
+  Provider: PlannerProvider,
+} = createDataContext<PlannerOptions>({
+  createDefault: () => ({
+    strategy: Strategies.firstComplet,
+  }),
+});
 
-export type { PlannerContextValue, PlannerOptions };
-export { PlannerContext };
+export type { PlannerOptions };
+export { PlannerContext, PlannerProvider };

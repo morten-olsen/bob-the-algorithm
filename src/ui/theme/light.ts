@@ -2,8 +2,8 @@ import { Theme } from './theme';
 
 const light: Theme = {
   colors: {
-    primary: '#1abc9c',
-    icon: '#1abc9c',
+    primary: '#6c5ce7',
+    icon: '#6c5ce7',
     destructive: '#e74c3c',
     shade: '#ededed',
     input: '#ddd',

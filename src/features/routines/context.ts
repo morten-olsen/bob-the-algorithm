@@ -1,26 +1,11 @@
-import { UserLocation } from "#/types/location";
-import { createContext } from "react"
+import { createDataContext } from "#/utils/data-context";
+import { Routine } from "../data";
 
-export type Routine = {
-  id: string;
-  title: string;
-  required: boolean;
-  priority: number;
-  start: {
-    min: Date;
-    max: Date;
-  };
-  duration: number;
-  location?: UserLocation[];
-  days?: boolean[];
-}
+const {
+  Context: RoutinesContext,
+  Provider: RoutinesProvider,
+}= createDataContext<{[id: string]: Routine}>({
+  createDefault: () => ({}),
+})
 
-export type RoutinesContextValue = {
-  routines: Routine[]; 
-  remove: (id: string) => any;
-  set: (routine: Routine) => any;
-}
-
-const RoutinesContext = createContext<RoutinesContextValue>(undefined as any);
-
-export { RoutinesContext };
+export { RoutinesContext, RoutinesProvider };

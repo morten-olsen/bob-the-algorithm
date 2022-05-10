@@ -1,43 +1,34 @@
 import { useLocations, useRemoveLocation } from "#/features/location"
-import { Button, Cell } from "#/ui/components";
-import { Row } from "#/ui/components/row/row";
+import { Button, Cell, Icon, Page, Row } from "#/ui/components/base";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native";
-import styled from "styled-components/native";
-
-const Wrapper = styled.View`
-
-`;
-
-const Name = styled.Text`
-
-`;
 
 const LocationListScreen: React.FC = () => {
-  const locations  = useLocations();
-  const removeLocation = useRemoveLocation();
   const { navigate } = useNavigation();
+  const locations = useLocations();
+  const removeLocation = useRemoveLocation();
+
   return (
-    <Wrapper>
-      <Button icon="plus-circle" onPress={() => navigate('locationSet')} />
+    <Page>
+      <Button title="Add" onPress={() => navigate('set-location', {})}/>
       <FlatList
-        data={Object.values(locations)}
+        data={locations}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <Row
             title={item.title}
-            onPress={() => {
-              navigate('locationSet', { id: item.id });
-            }}
-            right={
-              <Cell>
-                <Button type="destructive" icon="trash" onPress={() => removeLocation(item.id)} />
+            right={(
+              <Cell onPress={() => removeLocation(item.id)}>
+                <Icon
+                  name="trash"
+                  color="destructive"
+                />
               </Cell>
-            }
+            )}
           />
         )}
       />
-    </Wrapper>
+    </Page>
   );
 }
 

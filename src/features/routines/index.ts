@@ -1,3 +1,2 @@
-export { RoutinesProvider } from './provider';
-export { Routine } from './context';
+export { RoutinesProvider } from './context';
 export * from './hooks';
