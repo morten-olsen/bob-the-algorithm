@@ -32,12 +32,8 @@ function createDataContext<T extends {[name: string]: any}>({
         let next = typeof input === 'function'
           ? input(current!)
           : input;
-        const result = {
-          ...current!,
-          ...next,
-        };
-        setCurrent(result);
-        await AsyncStorageLib.setItem(key, JSON.stringify(result));
+        setCurrent(next);
+        await AsyncStorageLib.setItem(key, JSON.stringify(next));
       },
       [key, current, setCurrent],
     );

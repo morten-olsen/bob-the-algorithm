@@ -17,7 +17,7 @@ const dateToDay = (input: Date) => {
 }
 
 const toId = (day: Day) => {
-  return `${day.year}-${day.month}-${day.date}`;
+  return `${day.year.toString().padStart(4, '0')}-${day.month.toString().padStart(2, '0')}-${day.date.toString().padStart(2, '0')}`;
 }
 
 const dayUtils = {

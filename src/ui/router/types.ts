@@ -12,7 +12,27 @@ export type RootStackParamList = {
   'set-location': {
     id?: string;
   };
+  'set-override': {
+    id: string;
+  };
 };
+
+export type MainTabParamList = {
+  day: NavigatorScreenParams<RootStackParamList>;
+  plan: NavigatorScreenParams<RootStackParamList>;
+  more: NavigatorScreenParams<RootStackParamList>;
+}
+
+export type MoreStackParamList = {
+  locations: undefined;
+  tasks: {
+    type: TaskType;
+  };
+}
+
+export type MoreScreenNavigationProps = NativeStackNavigationProp<
+  MoreStackParamList
+>;
 
 
 export type RootRouteProp = RouteProp<RootStackParamList>;
@@ -26,9 +46,6 @@ export type TaskAddScreenNavigationProp = NativeStackNavigationProp<
   'add-task'
 >;
 
-export type MainTabParamList = {
-  day: NavigatorScreenParams<RootStackParamList>;
-  more: NavigatorScreenParams<RootStackParamList>;
-}
+export type TaskListScreenRouteProp = RouteProp<MoreStackParamList, 'tasks'>;
 
 export type DayScreenRouteProp = RouteProp<MainTabParamList, 'day'>;

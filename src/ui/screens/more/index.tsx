@@ -1,8 +1,10 @@
+import { TaskType } from "#/features/data";
 import { Page, Row } from "#/ui/components/base";
+import { MoreScreenNavigationProps } from "#/ui/router";
 import { useNavigation } from "@react-navigation/native";
 
 const MoreScreen: React.FC = () => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<MoreScreenNavigationProps>();
 
   return (
     <Page>
@@ -15,11 +17,11 @@ const MoreScreen: React.FC = () => {
       />
       <Row
         title="Routines"
-        onPress={() => navigate('routines')}
+        onPress={() => navigate('tasks', { type: TaskType.routine })}
       />
       <Row
         title="Goals"
-        onPress={() => navigate('goals')}
+        onPress={() => navigate('tasks', { type: TaskType.goal })}
       />
     </Page>
   );

@@ -1,4 +1,4 @@
-import { UserLocation } from "../data";
+import { Time, UserLocation } from "../data";
 import { createContext } from "react"
 
 type Transition = {
@@ -11,7 +11,7 @@ type Transition = {
 type GetTransition = (
   from: UserLocation,
   to: UserLocation,
-  time: Date,
+  time: Time,
 ) => Promise<Transition>;
 
 type LocationContextValue = {

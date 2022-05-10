@@ -1,6 +1,5 @@
-import { Context, GraphNode } from "#/types/graph";
-import { UserLocation } from "#/types/location";
-import { Task } from "#/types/task";
+import { Task, Time, UserLocation } from "#/features/data";
+import { Context, GraphNode } from "../types";
 import { getImpossible, getNext } from "./get-next";
 
 enum Strategies {
@@ -29,7 +28,7 @@ type Status = RunningStatus | CompletedStatus;
 
 type BuildGraphOptions = {
   location: UserLocation;
-  time: Date;
+  time: Time;
   tasks: Task[];
   context: Context;
   strategy?: Strategies;
@@ -49,7 +48,7 @@ const fil = <T>(
     for (let b = 0; b < fn.length; b++) {
       if (fn[b](input[i])) {
         output[b].push(input[i]);
-        continue;
+        break;
       }
     }
   }
@@ -150,7 +149,9 @@ const buildGraph = async ({
         return complete([fullComplete]);
       }
     }
-    deadList.push(...dead);
+    if (strategy !== Strategies.all) {
+      deadList.push(...dead);
+    }
   }
 
   return complete(completedList);

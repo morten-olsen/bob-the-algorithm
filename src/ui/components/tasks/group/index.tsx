@@ -33,7 +33,7 @@ const TaskGroup: React.FC<Props> = ({ type }) => {
         <TaskListItem
           item={task}
           onPress={() => {
-            navigate('add-task', { id: task.id });
+            navigate('set-override', { id: task.id });
           }}
         />
       )}

@@ -1,20 +1,16 @@
-import { GraphNode } from "#/types/graph";
-import { PlanItem } from "#/types/plans";
+import { timeUtils } from "#/features/data";
+import { GraphNode, PlannedEntry } from "../types";
 
 const constructDay = (node: GraphNode) => {
   let current: GraphNode | undefined = node;
-  const plans: PlanItem[] = [];
+  const plans: PlannedEntry[] = [];
 
   while(current) {
     if (current.task) {
       plans.push({
         type: 'task',
-        name: current.task?.name || 'start',
-        external: current.task?.external,
-        start: new Date(
-          current.time.start.getTime()
-          + (current.transition?.time || 0),
-        ),
+        name: current.task?.title || 'start',
+        start: timeUtils.add(current.time.start, (current.transition?.time || 0)),
         end: current.time.end,
         score: current.score,
       })
@@ -23,10 +19,7 @@ const constructDay = (node: GraphNode) => {
       plans.push({
         type: 'transition',
         start: current.time.start,
-        end: new Date(
-          current.time.start.getTime()
-          + current.transition.time,
-        ),
+        end: timeUtils.add(current.time.start, current.transition.time),
         from: current.transition.from,
         to: current.transition.to,
       })

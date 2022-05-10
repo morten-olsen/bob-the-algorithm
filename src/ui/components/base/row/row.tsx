@@ -4,7 +4,6 @@ import { Title1, Body1, Overline } from '#/ui/typography';
 import { Cell, CellProps } from './cell';
 
 type RowProps = CellProps & {
-  background?: string;
   top?: ReactNode;
   left?: ReactNode;
   right?: ReactNode;
@@ -12,8 +11,6 @@ type RowProps = CellProps & {
   overline?: ReactNode;
   description?: ReactNode;
   children?: ReactNode;
-  opacity?: number;
-  onPress?: () => any;
 }
 
 const Children = styled.View``;
@@ -32,19 +29,16 @@ const componentOrString = (
 };
 
 const Row: React.FC<RowProps> = ({
-  background,
   top,
   left,
   right,
   title,
-  opacity,
   overline,
   description,
   children,
-  onPress,
   ...cellProps
 }) => (
-  <Cell {...cellProps} background={background} opacity={opacity} onPress={onPress}>
+  <Cell {...cellProps}>
     {left}
     <Cell flex={1} direction="column" align="stretch">
       {!!top}

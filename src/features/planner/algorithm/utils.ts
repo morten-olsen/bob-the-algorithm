@@ -5,12 +5,12 @@ export const locationEqual = (a: UserLocation, b: UserLocation) => {
   if (a === b) {
     return true;
   }
-  if (a.location === b.location) {
-    return true;
-  }
-  if (a.location && b.location && a.location.latitude === b.location.latitude && a.location.longitute === b.location.longitute) {
-    return true;
-  }
+  // if (a.location === b.location) {
+  //   return true;
+  // }
+  // if (a.location && b.location && a.location.latitude === b.location.latitude && a.location.longitute === b.location.longitute) {
+  //   return true;
+  // }
   if (a.title === b.title) {
     return true;
   }

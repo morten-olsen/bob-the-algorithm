@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import { useAppointments } from "../appointments";
 import { useAsyncCallback } from "../async";
 import { Task, TaskType } from "../data";
-import { useGoals, useSetGoals } from "../goals/hooks";
-import { useRoutines, useSetRoutine } from "../routines";
+import { useGoals, useRemoveGoal, useSetGoals } from "../goals/hooks";
+import { useRemoveRoutine, useRoutines, useSetRoutine } from "../routines";
 
 export const useTasks = (type?: TaskType) => {
   const [appointments] = useAppointments();
@@ -41,6 +41,23 @@ export const useSetTask = () => {
       }
     },
     [setRoutine, setGoal],
+  );
+  return result;
+};
+
+export const useRemoveTask = () => {
+  const removeRoutine = useRemoveRoutine();
+  const removeGoal = useRemoveGoal();
+
+  const result = useAsyncCallback(
+    async (task: Task) => {
+      if (task.type === TaskType.routine) {
+        removeRoutine(task.id);
+      } else if (task.type === TaskType.goal) {
+        removeGoal(task.id);
+      }
+    },
+    [removeRoutine, removeGoal],
   );
   return result;
 };

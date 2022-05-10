@@ -26,12 +26,37 @@ const stringToTime = (input: string) => {
   return result;
 };
 
+const largerThan = (a: Time, b: Time) => {
+  return timeToMinutes(a) > timeToMinutes(b);
+}
+
+const max = (a: Time, b: Time) => largerThan(a, b) ? a : b;
+const min = (a: Time, b: Time) => largerThan(a, b) ? b : a;
+
 const timeToString = (input: Time) => `${input.hour}:${input.minute}`;
+
+const timeToMinutes = (time: Time) => time.hour * 60 + time.minute;
+
+const minutesToTime = (minutes: number): Time => {
+  const hour = Math.floor(minutes / 60);
+  const minute = minutes % 60;
+  return { hour, minute };
+}
+
+const add = (a: Time, b: Time | number) => {
+  const toAdd = typeof b === 'number' ? b : b.hour * 60 + b.minute
+  const current = a.hour * 60 + a.minute + toAdd;
+  return minutesToTime(current);
+}
 
 const timeUtils = {
   timeToString,
   stringToTime,
   equal,
+  largerThan,
+  timeToMinutes,
+  max,
+  add,
 };
 
 export { timeUtils };

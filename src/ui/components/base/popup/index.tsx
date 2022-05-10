@@ -1,9 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import { Icon } from '../icon';
 import { Row, Cell, RowProps } from '../row';
 import { Page } from '../page';
+import { ScrollView } from 'react-native';
 
 type Props = RowProps & {
   onClose?: () => void;
@@ -54,7 +55,9 @@ const Popup: React.FC<Props> = ({ children, onClose, right, ...rowProps }) => {
               </>
             }
           />
-          <Content>
+          <Content
+            alwaysBounceVertical={false}
+          >
             {children}
           </Content>
         </Wrapper>

@@ -12,6 +12,9 @@ import { Platform } from 'react-native';
 import { MoreScreen } from '../screens/more';
 import { LocationListScreen } from '../screens/locations/list';
 import { LocationSetScreen } from '../screens/locations/set';
+import { TaskListScreen } from '../screens/task/list';
+import { OverrideSetScreen } from '../screens/task/overrides';
+import { PlanScreen } from '../screens/plan';
 
 const MoreStackNavigator = createNativeStackNavigator();
 
@@ -19,6 +22,7 @@ const MoreStack: React.FC = () => (
   <MoreStackNavigator.Navigator>
     <MoreStackNavigator.Screen name="more-main" component={MoreScreen} />
     <MoreStackNavigator.Screen name="locations" component={LocationListScreen} />
+    <MoreStackNavigator.Screen name="tasks" component={TaskListScreen} />
   </MoreStackNavigator.Navigator>
 );
 
@@ -40,6 +44,15 @@ const MainTabs: React.FC = () => {
         }}
         name="day"
         component={DayScreen}
+      />
+      <MainTabsNvaigator.Screen
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Plan',
+          tabBarIcon: ({ focused }) => <Icon color={focused ? 'primary' : 'text'} name="check-square" />,
+        }}
+        name="plan"
+        component={PlanScreen}
       />
       <MainTabsNvaigator.Screen
         options={{
@@ -66,6 +79,7 @@ const Root: React.FC = () => (
     <RootNavigator.Group screenOptions={{ presentation: 'transparentModal' }}>
       <RootNavigator.Screen name="add-task" component={TaskAddScreen} />
       <RootNavigator.Screen name="set-location" component={LocationSetScreen} />
+      <RootNavigator.Screen name="set-override" component={OverrideSetScreen} />
     </RootNavigator.Group>
   </RootNavigator.Navigator>
 );

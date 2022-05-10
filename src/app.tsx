@@ -11,7 +11,7 @@ const App: React.FC = () => {
     async (from: any, to: any) => ({
       to,
       from,
-      time: 45 * 60 * 1000,
+      time: 45,
       usableTime: 0,
     }),
     [],

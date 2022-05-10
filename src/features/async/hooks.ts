@@ -47,7 +47,7 @@ const useAsyncCallback = <
         setLoading(false);
       }
     },
-    [setLoading, setError, setResult, action],
+    [setLoading, setError, setResult, action, ...deps],
   );
 
   const options = useMemo(
@@ -63,7 +63,7 @@ const useAsyncCallback = <
       ];
       return output;
     },
-    [invoke, result, loading, error, prevArgs],
+    [invoke, result, loading, error, prevArgs, ...deps],
   );
 
   return options;

@@ -1,3 +1,5 @@
+import { Task, Time, UserLocation } from "../data";
+import { GetTransition, Transition } from "../location";
 
 type Context = {
   getTransition: GetTransition;
@@ -6,19 +8,21 @@ type Context = {
 export type PlannedTask = {
   type: 'task';
   name: string;
-  start: Date;
+  start: Time;
   external?: boolean;
-  end: Date;
+  end: Time;
   score: number;
 }
 
 export type PlannedTransition = {
   type: 'transition';
-  start: Date;
-  end: Date;
+  start: Time;
+  end: Time;
   from: UserLocation;
   to: UserLocation;
 };
+
+export type PlannedEntry = PlannedTask | PlannedTransition;
 
 type GraphNode = {
   location: UserLocation;
@@ -29,8 +33,8 @@ type GraphNode = {
   impossibeTasks: Task[];
   score: number;
   time: {
-    start: Date;
-    end: Date;
+    start: Time;
+    end: Time;
   };
   status: {
     dead: boolean;

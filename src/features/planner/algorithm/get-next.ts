@@ -1,7 +1,9 @@
-import { GraphNode, Context } from '#/types/graph';
-import { Transition } from '#/types/location';
-import { Task } from '#/types/task';
+import { Task, Time, timeUtils } from '#/features/data';
+import { Transition } from '#/features/location';
+import { Context, GraphNode } from '../types';
 import { getRemainingLocations, listContainLocation } from './utils';
+
+const DEFAULT_PRIORITY = 50;
 
 const isDead = (impossible: Task[]) => {
   const missingRequered = impossible.find(t => t.required);
@@ -15,7 +17,7 @@ type GetImpossibleResult = {
 
 export const getImpossible = (
   tasks: Task[],
-  time: Date,
+  time: Time,
 ) => {
   const result: GetImpossibleResult = {
     remaining: [],
@@ -23,7 +25,7 @@ export const getImpossible = (
   }
 
   for (let task of tasks) {
-    if (time > task.start.max) {
+    if (timeUtils.largerThan(time, task.startTime.max)) {
       result.impossible.push(task);
     } else {
       result.remaining.push(task);
@@ -47,17 +49,17 @@ const calculateScore = ({
   let score = 0;
 
   tasks?.forEach((task) => {
-    score += task.priority * 10;
+    score += (task.priority || DEFAULT_PRIORITY) * 10;
     impossible.forEach((task) => {
       if (task.required) {
-        score -= 10000 + (1 * task.priority);
+        score -= 10000 + (1 * (task.priority || DEFAULT_PRIORITY));
       } else {
-        score -= 100 + (1 * task.priority);
+        score -= 100 + (1 * (task.priority || DEFAULT_PRIORITY));
       }
     });
   });
   if (transition) {
-    const minutes = transition.time / 1000 / 60
+    const minutes = transition.time;
     score -= 10 + (1 * minutes);
   }
   return score;
@@ -71,7 +73,7 @@ const getNext = async (
     const remainingLocations = getRemainingLocations(currentNode.remainingTasks, currentNode.location);
     await Promise.all(remainingLocations.map(async(location) => {
       const transition = await context.getTransition(currentNode.location, location, currentNode.time.end);
-      const endTime = new Date(currentNode.time.end.getTime() + transition.time);
+      const endTime = timeUtils.add(currentNode.time.end, transition.time);
       const { remaining, impossible } = getImpossible(currentNode.remainingTasks, endTime);
       const score = calculateScore({
         transition, 
@@ -89,7 +91,7 @@ const getNext = async (
         score: currentNode.score + score,
         status: {
           completed: false,
-          dead: isDead(impossible),
+          dead: false, // TODO: fix isDead(impossible),
         },
         time: {
           start: currentNode.time.end,
@@ -101,21 +103,14 @@ const getNext = async (
   const possibleTasks = currentNode.remainingTasks.filter(task => !task.locations || listContainLocation(task.locations, currentNode.location))
   await Promise.all(possibleTasks.map(async (orgTask) => {
     const task = {...orgTask};
-    task.count = (task.count || 1) - 1 
-    let startTime = new Date(
-      Math.max(
-        currentNode.time.end.getTime(),
-        task.start.min.getTime(),
-      ),
-    );
+    let startTime = 
+      timeUtils.max(
+        currentNode.time.end,
+        task.startTime.min,
+      );
     const parentRemainging = currentNode.remainingTasks.filter(t => t !== orgTask);
-    let endTime = new Date(startTime.getTime() + task.duration.min);
-    const { remaining, impossible } = getImpossible(
-      task.count > 0
-        ? [...parentRemainging, task]
-        : parentRemainging,
-      endTime,
-    );
+    let endTime = timeUtils.add(startTime, task.duration);
+    const { remaining, impossible } = getImpossible(parentRemainging, endTime);
     const score = calculateScore({
       tasks: [task], 
       impossible,

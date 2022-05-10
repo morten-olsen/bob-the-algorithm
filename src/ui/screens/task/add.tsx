@@ -47,13 +47,14 @@ const TaskAddScreen: React.FC = () => {
   const [selectedLocations, setSelectedLocations] = useState<UserLocation[]>([]);
   const [hasDays, setHasDays] = useState(false);
   const [selectedDays, setSelectedDays] = useState<typeof days>([]);
+  const [required, setRequired] = useState(false);
 
   useEffect(
     () => {
       if (!id) {
         return;
       }
-      const current = tasks.find(t => t.id);
+      const current = tasks.find(t => t.id === id);
       if (!current) {
         return;
       }
@@ -64,6 +65,7 @@ const TaskAddScreen: React.FC = () => {
       setHasLocation(!!current.locations);
       setSelectedLocations(current.locations || []);
       setCurrentType(current.type || TaskType.goal);
+      setRequired(current.required);
       if (current.type === TaskType.goal || current.type === TaskType.routine) {
         setHasDays(!!current.days);
       }
@@ -77,7 +79,7 @@ const TaskAddScreen: React.FC = () => {
         id: currentId,
         title,
         type: currentType,
-        required: true,
+        required,
         startTime: {
           max: maxStart!,
           min: minStart!,
@@ -103,11 +105,12 @@ const TaskAddScreen: React.FC = () => {
       selectedLocations,
       hasDays,
       selectedDays,
+      required,
     ],
   );
 
   return (
-    <Popup title={`Add ${type}`} onClose={goBack}>
+    <Popup title={type ? `Add ${type}` : `Update ${title}`} onClose={goBack}>
       <Group title="Basic">
         <TextInput label="Title" value={title} onChangeText={setTitle} />
         <SideBySide>
@@ -150,10 +153,7 @@ const TaskAddScreen: React.FC = () => {
           disabledText="Any day"
           enabledText="Specific days"
         />
-        <SideBySide>
-          <Checkbok label="Required" flex={1} />
-          <TextInput label="Priority" flex={1} />
-        </SideBySide>
+          <Checkbok label="Required" onChange={setRequired} value={required} />
         {type === TaskType.goal && (
           <SideBySide>
             <TextInput label="Start" flex={1} />

@@ -32,7 +32,8 @@ const Wrapper = styled.View<{
   ${({ opacity }) => (opacity? `opacity: ${opacity};` : '')}
 `;
 
-const Touch = styled.TouchableOpacity``;
+const Touch = styled.TouchableOpacity`
+`;
 
 const Cell: React.FC<CellProps> = ({ children, onPress, ...props}) => {
   const {

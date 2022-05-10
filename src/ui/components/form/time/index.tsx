@@ -20,32 +20,13 @@ const TimeField = styled.TextInput`
 `;
 
 const TimeInput: React.FC<Props> = ({ label, placeholder, value, onChange, children, ...row }) => {
-  const [innerValue, setValue] = useState(value ? timeUtils.timeToString(value) : '');
-
-  useEffect(
-    () => {
-      if (!innerValue && value) {
-        onChange(undefined); 
-        return;
-      }
-      const parsed = timeUtils.stringToTime(innerValue)
-      if (!parsed) {
-        return;
-      }
-      if (value && timeUtils.equal(parsed, value)) {
-        return;
-      } 
-      onChange(parsed);
-    },
-    [innerValue, value, onChange],
-  )
 
   return (
     <Row overline={label} {...row}>
       <TimeField
         placeholder={placeholder}
-        value={innerValue}
-        onChangeText={setValue}
+        value={value ? timeUtils.timeToString(value) : ''}
+        onChangeText={(text) => onChange(text ? timeUtils.stringToTime(text) : undefined)}
       />
       {children}
     </Row>
