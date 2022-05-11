@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/bob-the-algorithm/static/js/app.70cdeef3.chunk.js",
-    "app.js.map": "/bob-the-algorithm/static/js/app.70cdeef3.chunk.js.map",
+    "app.js": "/bob-the-algorithm/static/js/app.5219cb71.chunk.js",
+    "app.js.map": "/bob-the-algorithm/static/js/app.5219cb71.chunk.js.map",
     "runtime~app.js": "/bob-the-algorithm/static/js/runtime~app.508ab609.js",
     "runtime~app.js.map": "/bob-the-algorithm/static/js/runtime~app.508ab609.js.map",
-    "static/js/2.e67b069f.chunk.js": "/bob-the-algorithm/static/js/2.e67b069f.chunk.js",
-    "static/js/2.e67b069f.chunk.js.map": "/bob-the-algorithm/static/js/2.e67b069f.chunk.js.map",
+    "static/js/2.86ddfd84.chunk.js": "/bob-the-algorithm/static/js/2.86ddfd84.chunk.js",
+    "static/js/2.86ddfd84.chunk.js.map": "/bob-the-algorithm/static/js/2.86ddfd84.chunk.js.map",
     "fonts/AntDesign.ttf": "/bob-the-algorithm/./fonts/AntDesign.ttf",
     "fonts/Entypo.ttf": "/bob-the-algorithm/./fonts/Entypo.ttf",
     "fonts/Feather.ttf": "/bob-the-algorithm/./fonts/Feather.ttf",
@@ -24,11 +24,11 @@
     "index.html": "/bob-the-algorithm/index.html",
     "manifest.json": "/bob-the-algorithm/manifest.json",
     "serve.json": "/bob-the-algorithm/serve.json",
-    "static/js/2.e67b069f.chunk.js.LICENSE.txt": "/bob-the-algorithm/static/js/2.e67b069f.chunk.js.LICENSE.txt"
+    "static/js/2.86ddfd84.chunk.js.LICENSE.txt": "/bob-the-algorithm/static/js/2.86ddfd84.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.508ab609.js",
-    "static/js/2.e67b069f.chunk.js",
-    "static/js/app.70cdeef3.chunk.js"
+    "static/js/2.86ddfd84.chunk.js",
+    "static/js/app.5219cb71.chunk.js"
   ]
 }
