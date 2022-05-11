@@ -2,10 +2,22 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "lang": "en",
-  "name": "bob",
-  "short_name": "bob",
+  "name": "Bob",
+  "short_name": "Bob",
   "start_url": "/?utm_source=web_app_manifest",
   "orientation": "portrait",
+  "related_applications": [
+    {
+      "platform": "itunes",
+      "id": "pro.mortenolsen.bob"
+    },
+    {
+      "platform": "play",
+      "url": "http://play.google.com/store/apps/details?id=pro.mortenolsen.bob",
+      "id": "pro.mortenolsen.bob"
+    }
+  ],
+  "prefer_related_applications": true,
   "icons": [
     {
       "src": "/bob-the-algorithm/pwa/chrome-icon/chrome-icon-144.png",
