@@ -9,15 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
+
       - uses: expo/expo-github-action@v5
         with:
           expo-packager: yarn
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
           expo-cache: true
+
       - name: Cache Node Modules
         uses: actions/cache@v2
         env:
@@ -30,9 +33,14 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install Packages
-        run: npm i -g yarn && yarn install
+        run: |
+          corepack enable
+          yarn install
+
       - name: Expo Publish Channel
         run: expo publish --non-interactive --release-channel pr${{ github.event.number }}
+        working-directory: packages/app
+
       - name: Add Comment To PR
         uses: mshick/add-pr-comment@v1
         env:

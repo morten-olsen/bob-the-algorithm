@@ -17,14 +17,17 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
+          corepack enable
           yarn install
-          yarn expo build:web
+          yarn build:web
+          yarn build:storybook
+          cp -r packages/ui/public packages/app/web-build/design-system
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: web-build 
+          folder: packages/app/web-build 
   publish-native:
     name: Publish native versions
     runs-on: ubuntu-latest
@@ -44,18 +47,24 @@ jobs:
           git config --global user.email "github-action@example.com"
           git config --global user.name "Github Bot"
           yarn version --new-version=$BUILD_VERSION
+        working-directory: packages/app
         env:
           BUILD_VERSION: 1.${{ github.run_id }}.${{ github.run_number }}
-      - run: yarn install
+
+      - run: |
+          corepack enable
+          yarn install
 
       - run: echo $BUILD_VERSION
 
       # - run: eas build -p android --non-interactive
 
       - run: eas build -p ios --non-interactive
+        working-directory: packages/app
         env:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
 
       - run: eas submit --platform ios --non-interactive --latest
+        working-directory: packages/app
         env:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}

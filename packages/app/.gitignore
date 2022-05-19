@@ -1,5 +1,4 @@
 /*.log
-/.yarn
 node_modules/
 .expo/
 dist/

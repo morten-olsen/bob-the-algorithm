@@ -1,0 +1,39 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { Button } from '.';
+
+<Meta title="Components/Button" component={Button} />
+
+# Button
+
+Has following variants: Primary, secondary, outlined, text only, destructive, disabled and comes in 4 sizes.
+
+## Variants
+
+`type: "primary"`
+
+<Canvas>
+  <Story name="Primary">
+    <Button type="primary" title="Foo" />
+  </Story>
+</Canvas>
+
+`type: "secondary"`
+
+<Canvas>
+  <Story name="Secondary">
+    <Button type="secondary" title="Foo" />
+  </Story>
+</Canvas>
+
+`type: "destructive"`
+
+<Canvas>
+  <Story name="Destructive">
+    <Button type="destructive" title="Foo" />
+  </Story>
+</Canvas>
+
+## Component arguments
+
+<ArgsTable of={Button} />
+
