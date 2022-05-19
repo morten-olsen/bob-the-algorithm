@@ -1,34 +1,28 @@
 {
   "files": {
-    "app.js": "/bob-the-algorithm/static/js/app.7da76fef.chunk.js",
-    "app.js.map": "/bob-the-algorithm/static/js/app.7da76fef.chunk.js.map",
+    "app.js": "/bob-the-algorithm/static/js/app.16683bef.chunk.js",
+    "app.js.map": "/bob-the-algorithm/static/js/app.16683bef.chunk.js.map",
     "runtime~app.js": "/bob-the-algorithm/static/js/runtime~app.508ab609.js",
     "runtime~app.js.map": "/bob-the-algorithm/static/js/runtime~app.508ab609.js.map",
-    "static/js/2.86ddfd84.chunk.js": "/bob-the-algorithm/static/js/2.86ddfd84.chunk.js",
-    "static/js/2.86ddfd84.chunk.js.map": "/bob-the-algorithm/static/js/2.86ddfd84.chunk.js.map",
-    "fonts/AntDesign.ttf": "/bob-the-algorithm/./fonts/AntDesign.ttf",
-    "fonts/Entypo.ttf": "/bob-the-algorithm/./fonts/Entypo.ttf",
-    "fonts/Feather.ttf": "/bob-the-algorithm/./fonts/Feather.ttf",
-    "fonts/FontAwesome.ttf": "/bob-the-algorithm/./fonts/FontAwesome.ttf",
-    "fonts/FontAwesome5_Brands.ttf": "/bob-the-algorithm/./fonts/FontAwesome5_Brands.ttf",
-    "fonts/FontAwesome5_Solid.ttf": "/bob-the-algorithm/./fonts/FontAwesome5_Solid.ttf",
-    "fonts/Fontisto.ttf": "/bob-the-algorithm/./fonts/Fontisto.ttf",
-    "fonts/Foundation.ttf": "/bob-the-algorithm/./fonts/Foundation.ttf",
-    "fonts/Ionicons.ttf": "/bob-the-algorithm/./fonts/Ionicons.ttf",
-    "fonts/MaterialCommunityIcons.ttf": "/bob-the-algorithm/./fonts/MaterialCommunityIcons.ttf",
-    "fonts/MaterialIcons.ttf": "/bob-the-algorithm/./fonts/MaterialIcons.ttf",
-    "fonts/SimpleLineIcons.ttf": "/bob-the-algorithm/./fonts/SimpleLineIcons.ttf",
+    "static/js/2.6ed8115f.chunk.js": "/bob-the-algorithm/static/js/2.6ed8115f.chunk.js",
+    "static/js/2.6ed8115f.chunk.js.map": "/bob-the-algorithm/static/js/2.6ed8115f.chunk.js.map",
     "favicon-16.png": "/bob-the-algorithm/favicon-16.png",
     "favicon-32.png": "/bob-the-algorithm/favicon-32.png",
     "favicon.ico": "/bob-the-algorithm/favicon.ico",
     "index.html": "/bob-the-algorithm/index.html",
     "manifest.json": "/bob-the-algorithm/manifest.json",
     "serve.json": "/bob-the-algorithm/serve.json",
-    "static/js/2.86ddfd84.chunk.js.LICENSE.txt": "/bob-the-algorithm/static/js/2.86ddfd84.chunk.js.LICENSE.txt"
+    "static/js/2.6ed8115f.chunk.js.LICENSE.txt": "/bob-the-algorithm/static/js/2.6ed8115f.chunk.js.LICENSE.txt",
+    "static/media/montserrat-all-400-normal.woff": "/bob-the-algorithm/static/media/montserrat-all-400-normal.aa917f2f.woff",
+    "static/media/montserrat-cyrillic-400-normal.woff2": "/bob-the-algorithm/static/media/montserrat-cyrillic-400-normal.9c4cf182.woff2",
+    "static/media/montserrat-cyrillic-ext-400-normal.woff2": "/bob-the-algorithm/static/media/montserrat-cyrillic-ext-400-normal.d2bdc151.woff2",
+    "static/media/montserrat-latin-400-normal.woff2": "/bob-the-algorithm/static/media/montserrat-latin-400-normal.f2d2ef7b.woff2",
+    "static/media/montserrat-latin-ext-400-normal.woff2": "/bob-the-algorithm/static/media/montserrat-latin-ext-400-normal.75ba6196.woff2",
+    "static/media/montserrat-vietnamese-400-normal.woff2": "/bob-the-algorithm/static/media/montserrat-vietnamese-400-normal.69611381.woff2"
   },
   "entrypoints": [
     "static/js/runtime~app.508ab609.js",
-    "static/js/2.86ddfd84.chunk.js",
-    "static/js/app.7da76fef.chunk.js"
+    "static/js/2.6ed8115f.chunk.js",
+    "static/js/app.16683bef.chunk.js"
   ]
 }
