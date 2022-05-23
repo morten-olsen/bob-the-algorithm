@@ -1,0 +1,53 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { Checkbox } from '.';
+import { Button } from '../../base';
+
+<Meta title="Components/Forms/Checkbox" component={Checkbox} />
+
+# Checkbox 
+
+Has following variants: Primary, secondary, outlined, text only, destructive, disabled and comes in 4 sizes.
+
+
+<Canvas>
+  <Story name="Checked">
+    <Checkbox label="Foo" value={true} />
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Unchecked">
+    <Checkbox label="Foo" value={false} />
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="With right">
+    <Checkbox 
+      label="Foo"
+      value={false}
+      right={
+        <Cell><Button title="Test" /></Cell>
+      }
+    />
+  </Story>
+</Canvas>
+
+
+<Canvas>
+  <Story name="With left">
+    <Checkbox 
+      label="Foo"
+      value={false}
+      left={
+        <Cell><Button title="Test" /></Cell>
+      }
+    />
+  </Story>
+</Canvas>
+
+
+## Component arguments
+
+<ArgsTable of={Checkbox} />
+

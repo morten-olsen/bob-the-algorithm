@@ -1,0 +1,41 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { OptionalSelector } from '.';
+
+<Meta title="Components/Forms/OptionalSelector" component={OptionalSelector} />
+
+# Optional Selector 
+
+Has following variants: Primary, secondary, outlined, text only, destructive, disabled and comes in 4 sizes.
+
+
+<Canvas>
+  <Story name="Disabled">
+    <OptionalSelector
+      label="Foo"
+      items={[]}
+      enabledText="Enabled"
+      disabledText="Disabled"
+      render={a => { title: a }}
+    />
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Enabled">
+    <OptionalSelector
+      enabled
+      selected={['bar']}
+      label="Foo"
+      items={['foo', 'bar']}
+      render={a => ({ title: a })}
+      getKey={a => a}
+      enabledText="Enabled"
+      disabledText="Disabled"
+    />
+  </Story>
+</Canvas>
+
+## Component arguments
+
+<ArgsTable of={OptionalSelector} />
+

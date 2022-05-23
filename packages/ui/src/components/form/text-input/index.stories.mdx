@@ -1,0 +1,53 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { TextInput } from '.';
+import { Button } from '../../base';
+
+<Meta title="Components/Forms/TextInput" component={TextInput} />
+
+# Checkbox 
+
+Has following variants: Primary, secondary, outlined, text only, destructive, disabled and comes in 4 sizes.
+
+
+<Canvas>
+  <Story name="Empty">
+    <TextInput label="Foo" />
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="With value">
+    <TextInput label="Foo" value={false} />
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="With right">
+    <TextInput
+      label="Foo"
+      value={false}
+      right={
+        <Cell><Button title="Test" /></Cell>
+      }
+    />
+  </Story>
+</Canvas>
+
+
+<Canvas>
+  <Story name="With left">
+    <TextInput
+      label="Foo"
+      value={false}
+      left={
+        <Cell><Button title="Test" /></Cell>
+      }
+    />
+  </Story>
+</Canvas>
+
+
+## Component arguments
+
+<ArgsTable of={TextInput} />
+
