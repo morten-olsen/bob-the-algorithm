@@ -1,6 +1,6 @@
 {
   "name": "@morten-olsen/bob",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0",
   "main": "./src/index.ts",
   "homepage": "/bob-the-algorithm",
   "scripts": {
@@ -37,7 +37,7 @@
     "expo-font": "~10.0.4",
     "expo-linking": "~3.0.0",
     "expo-location": "~14.0.1",
-    "expo-random": "^12.1.2",
+    "expo-random": "~12.1.1",
     "expo-splash-screen": "~0.14.0",
     "expo-status-bar": "~1.2.0",
     "expo-task-manager": "~10.1.0",
@@ -50,8 +50,8 @@
     "react-native-calendar-strip": "^2.2.5",
     "react-native-calendars": "^1.1284.0",
     "react-native-collapsible": "^1.6.0",
-    "react-native-gesture-handler": "^2.4.2",
-    "react-native-get-random-values": "^1.8.0",
+    "react-native-gesture-handler": "~2.1.0",
+    "react-native-get-random-values": "~1.7.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",

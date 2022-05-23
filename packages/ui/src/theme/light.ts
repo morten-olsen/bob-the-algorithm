@@ -50,7 +50,7 @@ const light: Theme = {
   },
   font: {
     family: Platform.OS === 'web' ? 'Montserrat' : undefined,
-    baseSize: Platform.OS === 'web' ? 12 : 10,
+    baseSize: Platform.OS === 'web' ? 12 : 11,
   },
 };
 

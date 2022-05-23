@@ -1,5 +1,5 @@
 import { buildGraph, Status, Strategies } from "./algorithm/build-graph";
-import { useContext } from "react";
+import { useContext, useMemo, useState } from "react";
 import { add } from 'date-fns';
 import { PlannerContext } from "./context";
 import { Task, Time, UserLocation } from "../data";
@@ -103,6 +103,7 @@ const usePreparePlan = () => {
             },
             duration: firstValue(override?.duration, task.duration),
             required: firstValue(override?.required, task.required),
+            locations: firstValue(override?.locations, task.locations) || undefined,
           }
           return result;
         }).filter(Boolean).map(a => a as Exclude<typeof a, undefined>);
@@ -137,6 +138,7 @@ export const useSetPlanOptions = () => {
 
 export const usePlan = () => {
   const [preparePlan] = usePreparePlan();
+  const [result, setResult] = useState<PlanResult | undefined>(undefined);
   const getTransition = useGetTransition();
   const options = usePlanOptions();
   const createPlan = useAsyncCallback(
@@ -154,7 +156,9 @@ export const usePlan = () => {
         }), {} as {[name: string]: PlanResultDay})
       }
       const update = (next: PlanResult) => {
+        setResult(next);
         result = next;
+        return next;
       }
       for (let day of prepared.days) {
         const id = dayUtils.toId(day.day);
@@ -211,12 +215,19 @@ export const usePlan = () => {
         })
       }
 
-      return {
+      return update({
         ...result,
         impossible: prepared.goals,
-      };
+      });
     },
     [preparePlan, getTransition, options],
   );
-  return createPlan;
+  const output = useMemo(
+    () => [
+      createPlan[0],
+      { ...createPlan[1], result },
+    ],
+    [createPlan, result],
+  );
+  return output;
 }

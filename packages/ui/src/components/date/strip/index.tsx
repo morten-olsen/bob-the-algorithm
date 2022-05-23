@@ -70,7 +70,6 @@ const CalendarStrip: React.FC<Props> = ({ start, selected, onSelect }) => {
   }, [firstDayOfWeek]);
 
   const monthLabel = useMemo(() => {
-    console.log(months);
     if (months[0] === months[1]) {
       return new Date(0, months[0], 1).toLocaleString('en-us', { month: 'long' });
     } else {

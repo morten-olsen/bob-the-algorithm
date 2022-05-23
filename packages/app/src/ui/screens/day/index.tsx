@@ -37,7 +37,7 @@ const DayScreen: React.FC = () => {
           value={startTimeOverride}
           onChange={setStartTimeOverride}
         />
-        {appointmentStatus === AppointmentsStatus.rejected && (
+        {appointmentStatus === AppointmentsStatus.approved && (
           <TaskGroup type={TaskType.appointment} />
         )}
         <TaskGroup type={TaskType.routine} />

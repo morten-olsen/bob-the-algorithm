@@ -47,6 +47,13 @@ const timeToDate = (time: Time) => {
   return new Date(0, 0, 0, time.hour, time.minute);
 }
 
+const dateToTime = (date: Date) => {
+  return {
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+  };
+}
+
 const add = (a: Time, b: Time | number) => {
   const toAdd = typeof b === 'number' ? b : b.hour * 60 + b.minute
   const current = a.hour * 60 + a.minute + toAdd;
@@ -60,6 +67,7 @@ const timeUtils = {
   largerThan,
   timeToMinutes,
   timeToDate,
+  dateToTime,
   max,
   add,
 };

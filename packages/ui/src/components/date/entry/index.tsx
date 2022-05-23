@@ -1,4 +1,4 @@
-import { Body1, Caption, Overline } from "../../../typography";
+import { Title1, Title2, Body1, Caption, Overline } from "../../../typography";
 import { Row, Cell, Icon, RowProps } from '../../base';
 import styled from "styled-components/native"
 import stringToColor from 'string-to-color';
@@ -61,8 +61,8 @@ const CalendarEntry = ({
       height={height}
       color={color}
     >
-      <Overline color="background">{location}</Overline>
-      <Body1 color="background">{title}</Body1>
+      {!!location && <Overline color="background">{location}</Overline>}
+      <Title1 color="background">{title}</Title1>
       <Caption color="background">{time}</Caption>
     </Wrapper>
   );

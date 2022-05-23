@@ -49,8 +49,6 @@ const OverrideSetScreen: React.FC = () => {
   const [duration, setDuration] = useState('');
   const [hasLocation, setHasLocation] = useState(false);
   const [selectedLocations, setSelectedLocations] = useState<UserLocation[]>([]);
-  const [hasDays, setHasDays] = useState(false);
-  const [selectedDays, setSelectedDays] = useState<typeof days>([]);
 
   useEffect(
     () => {
@@ -88,8 +86,6 @@ const OverrideSetScreen: React.FC = () => {
       duration,
       hasLocation,
       selectedLocations,
-      hasDays,
-      selectedDays,
     ],
   );
 
@@ -100,6 +96,10 @@ const OverrideSetScreen: React.FC = () => {
     },
     [id, clearOverrides],
   );
+
+  if (!task) {
+    return <></>;
+  }
 
   return (
     <Popup title={`Overrides for ${task.title}`} onClose={goBack}>
@@ -138,20 +138,6 @@ const OverrideSetScreen: React.FC = () => {
         setEnabled={setHasLocation}
         disabledText="Anywhere"
         enabledText="Specific location"
-      />
-      <OptionalSelector
-        label="Days"
-        enabled={hasDays}
-        items={days}
-        selected={selectedDays}
-        onChange={setSelectedDays}
-        render={day=> ({
-          title: day.name
-        })}
-        getKey={day => day.id.toString()}
-        setEnabled={setHasDays}
-        disabledText="Any day"
-        enabledText="Specific days"
       />
       <Checkbox label="Required" />
       <TextInput
