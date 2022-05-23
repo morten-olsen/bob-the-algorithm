@@ -1,6 +1,6 @@
 {
   "name": "@morten-olsen/ui",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "homepage": "/bob-the-algorithm",
   "jest": {
     "preset": "jest-expo"

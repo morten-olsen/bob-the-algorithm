@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "homepage": "/bob-the-algorithm",
   "scripts": {
+    "postinstall": "lerna bootstrap",
     "dev": "yarn workspace @morten-olsen/bob start",
     "build:web": "yarn workspace @morten-olsen/bob build:web",
     "build:storybook": "yarn workspace @morten-olsen/ui build:storybook",
     "dev:storybook": "yarn workspace @morten-olsen/ui dev"
   },
-  "packageManager": "yarn@3.1.0",
   "workspaces": [
     "packages/*"
   ],
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
 }
