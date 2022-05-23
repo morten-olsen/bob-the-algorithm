@@ -1,18 +1,18 @@
 {
   "files": {
-    "app.js": "/bob-the-algorithm/static/js/app.d811412d.chunk.js",
-    "app.js.map": "/bob-the-algorithm/static/js/app.d811412d.chunk.js.map",
+    "app.js": "/bob-the-algorithm/static/js/app.553d4ac7.chunk.js",
+    "app.js.map": "/bob-the-algorithm/static/js/app.553d4ac7.chunk.js.map",
     "runtime~app.js": "/bob-the-algorithm/static/js/runtime~app.508ab609.js",
     "runtime~app.js.map": "/bob-the-algorithm/static/js/runtime~app.508ab609.js.map",
-    "static/js/2.d785059f.chunk.js": "/bob-the-algorithm/static/js/2.d785059f.chunk.js",
-    "static/js/2.d785059f.chunk.js.map": "/bob-the-algorithm/static/js/2.d785059f.chunk.js.map",
+    "static/js/2.b4c8a1b8.chunk.js": "/bob-the-algorithm/static/js/2.b4c8a1b8.chunk.js",
+    "static/js/2.b4c8a1b8.chunk.js.map": "/bob-the-algorithm/static/js/2.b4c8a1b8.chunk.js.map",
     "favicon-16.png": "/bob-the-algorithm/favicon-16.png",
     "favicon-32.png": "/bob-the-algorithm/favicon-32.png",
     "favicon.ico": "/bob-the-algorithm/favicon.ico",
     "index.html": "/bob-the-algorithm/index.html",
     "manifest.json": "/bob-the-algorithm/manifest.json",
     "serve.json": "/bob-the-algorithm/serve.json",
-    "static/js/2.d785059f.chunk.js.LICENSE.txt": "/bob-the-algorithm/static/js/2.d785059f.chunk.js.LICENSE.txt",
+    "static/js/2.b4c8a1b8.chunk.js.LICENSE.txt": "/bob-the-algorithm/static/js/2.b4c8a1b8.chunk.js.LICENSE.txt",
     "static/media/montserrat-all-400-normal.woff": "/bob-the-algorithm/static/media/montserrat-all-400-normal.aa917f2f.woff",
     "static/media/montserrat-cyrillic-400-normal.woff2": "/bob-the-algorithm/static/media/montserrat-cyrillic-400-normal.9c4cf182.woff2",
     "static/media/montserrat-cyrillic-ext-400-normal.woff2": "/bob-the-algorithm/static/media/montserrat-cyrillic-ext-400-normal.d2bdc151.woff2",
@@ -22,7 +22,7 @@
   },
   "entrypoints": [
     "static/js/runtime~app.508ab609.js",
-    "static/js/2.d785059f.chunk.js",
-    "static/js/app.d811412d.chunk.js"
+    "static/js/2.b4c8a1b8.chunk.js",
+    "static/js/app.553d4ac7.chunk.js"
   ]
 }
